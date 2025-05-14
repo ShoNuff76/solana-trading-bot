@@ -4,8 +4,8 @@ import pandas as pd
 from datetime import datetime
 
 # === CONFIG ===
-API_KEY = 'YOUR_KRAKEN_API_KEY'
-API_SECRET = 'YOUR_KRAKEN_PRIVATE_KEY'
+API_KEY = os.getenv('API_KEY')
+API_SECRET = os.getenv('API_SECRET')
 ASSET_PAIR = 'SOLUSD'
 BUY_DROP_PERCENT = 0.02   # Buy when price drops 2%
 SELL_GAIN_PERCENT = 0.03  # Sell when price rises 3%
