@@ -1,3 +1,4 @@
+import os
 import krakenex
 import time
 import pandas as pd
