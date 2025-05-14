@@ -77,20 +77,3 @@ while True:
                 print(f"[SELL] at ${price:.2f}")
 
     time.sleep(CHECK_INTERVAL)
-
-        if not holding and price < avg_price * (1 - BUY_DROP_PERCENT):
-            result = place_order('buy', TRADE_AMOUNT)
-            if result and 'result' in result:
-                buy_price = price
-                holding = True
-                log_trade('BUY', price)
-                print(f"[BUY] at ${price:.2f}")
-
-        elif holding and price > buy_price * (1 + SELL_GAIN_PERCENT):
-            result = place_order('sell', TRADE_AMOUNT)
-            if result and 'result' in result:
-                holding = False
-                log_trade('SELL', price)
-                print(f"[SELL] at ${price:.2f}")
-
-    time.sleep(CHECK_INTERVAL)
