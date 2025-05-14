@@ -52,6 +52,7 @@ while True:
 
     price = get_current_price()
     print(f"Fetched price: {price}")
+
     if price:
         price_history.append(price)
         if len(price_history) > 20:
@@ -59,6 +60,23 @@ while True:
 
         avg_price = sum(price_history) / len(price_history)
         print(f"Current: ${price:.2f} | Avg: ${avg_price:.2f} | Holding: {holding}")
+
+        if not holding and price < avg_price * (1 - BUY_DROP_PERCENT):
+            result = place_order('buy', TRADE_AMOUNT)
+            if result and 'result' in result:
+                buy_price = price
+                holding = True
+                log_trade('BUY', price)
+                print(f"[BUY] at ${price:.2f}")
+
+        elif holding and price > buy_price * (1 + SELL_GAIN_PERCENT):
+            result = place_order('sell', TRADE_AMOUNT)
+            if result and 'result' in result:
+                holding = False
+                log_trade('SELL', price)
+                print(f"[SELL] at ${price:.2f}")
+
+    time.sleep(CHECK_INTERVAL)
 
         if not holding and price < avg_price * (1 - BUY_DROP_PERCENT):
             result = place_order('buy', TRADE_AMOUNT)
