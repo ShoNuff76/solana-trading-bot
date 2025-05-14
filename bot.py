@@ -48,11 +48,10 @@ def log_trade(action, price):
     df.to_csv('trade_log.csv', mode='a', header=False, index=False)
 
 while True:
-        print("🔄 Bot is alive and checking price...")
+    print("🔄 Bot is alive and checking price...")
 
     price = get_current_price()
     print(f"Fetched price: {price}")
-    price = get_current_price()
     if price:
         price_history.append(price)
         if len(price_history) > 20:
