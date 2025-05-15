@@ -27,7 +27,7 @@ def get_current_price():
         response = k.query_public('Ticker', {'pair': ASSET_PAIR})
         return float(response['result'][list(response['result'].keys())[0]]['c'][0])
     except Exception as e:
-        print(f"Error fetching price: {e}")
+        print(f"Error fetching price: {e}", flush=True)
         return None
 
 def place_order(order_type, volume):
@@ -39,7 +39,7 @@ def place_order(order_type, volume):
             'volume': volume
         })
     except Exception as e:
-        print(f"Order error: {e}")
+        print(f"Order error: {e}", flush=True)
         return None
 
 def log_trade(action, price):
@@ -48,10 +48,10 @@ def log_trade(action, price):
     df.to_csv('trade_log.csv', mode='a', header=False, index=False)
 
 while True:
-    print("🔄 Bot is alive and checking price...")
+    print("🔄 Bot is alive and checking price...", flush=True)
 
     price = get_current_price()
-    print(f"Fetched price: {price}")
+    print(f"Fetched price: {price}", flush=True)
 
     if price:
         price_history.append(price)
@@ -59,7 +59,7 @@ while True:
             price_history.pop(0)
 
         avg_price = sum(price_history) / len(price_history)
-        print(f"Current: ${price:.2f} | Avg: ${avg_price:.2f} | Holding: {holding}")
+        print(f"Current: ${price:.2f} | Avg: ${avg_price:.2f} | Holding: {holding}", flush=True)
 
         if not holding and price < avg_price * (1 - BUY_DROP_PERCENT):
             result = place_order('buy', TRADE_AMOUNT)
@@ -67,13 +67,13 @@ while True:
                 buy_price = price
                 holding = True
                 log_trade('BUY', price)
-                print(f"[BUY] at ${price:.2f}")
+                print(f"[BUY] at ${price:.2f}", flush=True)
 
         elif holding and price > buy_price * (1 + SELL_GAIN_PERCENT):
             result = place_order('sell', TRADE_AMOUNT)
             if result and 'result' in result:
                 holding = False
                 log_trade('SELL', price)
-                print(f"[SELL] at ${price:.2f}")
+                print(f"[SELL] at ${price:.2f}", flush=True)
 
     time.sleep(CHECK_INTERVAL)
