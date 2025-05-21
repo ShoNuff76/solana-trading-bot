@@ -4,11 +4,16 @@ import time
 print("🚀 Bot is starting...")
 
 # === SET UP KRAKEN CONNECTION ===
-kraken = ccxt.kraken({
-    'apiKey': 'your_actual_api_key',  # ← KEEP your working API key here
-    'secret': 'your_actual_api_secret',  # ← KEEP your working secret key here
-    'enableRateLimit': True
-})
+try:
+    kraken = ccxt.kraken({
+        'apiKey': 'your_actual_api_key',  # ← keep your existing key
+        'secret': 'your_actual_api_secret',  # ← keep your existing secret
+        'enableRateLimit': True
+    })
+    print("✅ Kraken connection initialized.")
+except Exception as e:
+    print(f"❌ Failed to initialize Kraken: {e}")
+    raise SystemExit
 
 symbol = 'SOL/USD'
 
@@ -33,7 +38,6 @@ def fetch_price():
         print(f"❌ Failed to fetch price: {e}")
         return None
 
-print("✅ Kraken connection initialized.")
 print("🔁 Entering price check loop...")
 
 while True:
