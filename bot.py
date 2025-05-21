@@ -3,6 +3,14 @@ import ccxt
 import time
 
 print("🚀 Bot is starting...")
+print(f"KRAKEN_API_KEY: {os.getenv('KRAKEN_API_KEY')}")
+print(f"KRAKEN_API_SECRET: {os.getenv('KRAKEN_API_SECRET')}")
+
+import os
+import ccxt
+import time
+
+print("🚀 Bot is starting...")
 
 # === SET UP KRAKEN CONNECTION ===
 try:
