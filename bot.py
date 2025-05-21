@@ -1,13 +1,12 @@
-print("🧪 DEBUG: Script started")  # ← EARLY DEBUG
-
-import os
-import ccxt
-import time
-
-print("🚀 Bot is starting...")  # ← Confirm we're past imports
+print("⚙️ Attempting to initialize Kraken...")
 
 try:
-    print(f"KRAKEN_API_KEY exists? {'KRAKEN_API_KEY' in os.environ}")
-    print(f"KRAKEN_API_SECRET exists? {'KRAKEN_API_SECRET' in os.environ}")
+    kraken = ccxt.kraken({
+        'apiKey': os.getenv('KRAKEN_API_KEY'),
+        'secret': os.getenv('KRAKEN_API_SECRET'),
+        'enableRateLimit': True
+    })
+    print("✅ Kraken connection initialized.")
 except Exception as e:
-    print(f"❌ CRASHED EARLY: {e}")
+    print(f"❌ Failed to initialize Kraken: {e}")
+    raise SystemExit
