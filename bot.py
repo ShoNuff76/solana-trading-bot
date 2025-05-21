@@ -1,3 +1,4 @@
+import os
 import ccxt
 import time
 
@@ -6,8 +7,8 @@ print("🚀 Bot is starting...")
 # === SET UP KRAKEN CONNECTION ===
 try:
     kraken = ccxt.kraken({
-        'apiKey': 'your_actual_api_key',  # ← keep your existing key
-        'secret': 'your_actual_api_secret',  # ← keep your existing secret
+        'apiKey': os.getenv('KRAKEN_API_KEY'),
+        'secret': os.getenv('KRAKEN_API_SECRET'),
         'enableRateLimit': True
     })
     print("✅ Kraken connection initialized.")
