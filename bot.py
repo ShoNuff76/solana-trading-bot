@@ -4,15 +4,24 @@ import time
 
 print("🚀 Bot is starting...")
 
-# Confirm API keys are present without revealing them
-print("🔐 API Key Loaded" if os.getenv('KRAKEN_API_KEY') else "❌ Missing API Key")
-print("🔐 API Secret Loaded" if os.getenv('KRAKEN_API_SECRET') else "❌ Missing API Secret")
+# Debugging key environment loading
+api_key = os.getenv('KRAKEN_API_KEY')
+api_secret = os.getenv('KRAKEN_API_SECRET')
+
+if not api_key or not api_secret:
+    print("❌ Missing API credentials.")
+    print(f"KRAKEN_API_KEY: {repr(api_key)}")
+    print(f"KRAKEN_API_SECRET: {repr(api_secret)}")
+    raise SystemExit("Environment variable(s) missing or blank.")
+
+print("🔐 API Key Loaded")
+print("🔐 API Secret Loaded")
 
 # === SET UP KRAKEN CONNECTION ===
 try:
     kraken = ccxt.kraken({
-        'apiKey': os.getenv('KRAKEN_API_KEY'),
-        'secret': os.getenv('KRAKEN_API_SECRET'),
+        'apiKey': api_key,
+        'secret': api_secret,
         'enableRateLimit': True
     })
     print("✅ Kraken connection initialized.")
