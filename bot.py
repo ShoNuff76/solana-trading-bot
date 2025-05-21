@@ -3,14 +3,10 @@ import ccxt
 import time
 
 print("🚀 Bot is starting...")
-print(f"KRAKEN_API_KEY: {os.getenv('KRAKEN_API_KEY')}")
-print(f"KRAKEN_API_SECRET: {os.getenv('KRAKEN_API_SECRET')}")
 
-import os
-import ccxt
-import time
-
-print("🚀 Bot is starting...")
+# Confirm API keys are present without revealing them
+print("🔐 API Key Loaded" if os.getenv('KRAKEN_API_KEY') else "❌ Missing API Key")
+print("🔐 API Secret Loaded" if os.getenv('KRAKEN_API_SECRET') else "❌ Missing API Secret")
 
 # === SET UP KRAKEN CONNECTION ===
 try:
